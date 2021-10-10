@@ -42,16 +42,6 @@ export default {
     return {
       showModal: false,
       options: {
-        asset_type: { FxSpot: 'FxSpot', Futur: 'Futur' },
-        frequency_high: {
-          1: '1m', 3: '3m', 5: '5m', 30: '30m', 60: '1h', 240: '4h', 1440: '1d',
-        },
-        frequency_low: {
-          0: 'NA', 1: '1m', 3: '3m', 5: '5m', 30: '30m', 60: '1h', 240: '4h', 1440: '1d',
-        },
-        strategy: {
-          EMA: 'EMA', MACD: 'MACD', NC_MACD: 'NC_MACD', NC_EMA: 'NC_EMA',
-        },
       },
     };
   },

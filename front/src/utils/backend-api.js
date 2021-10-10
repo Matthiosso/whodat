@@ -20,7 +20,6 @@ export default {
     return this.axiosInstance.put(`/target/update/${updateTargetid}`, updateTarget);
   },
   deleteTarget(deleteTargetid) {
-    console.log(`Deleting ${deleteTargetid}`);
     return this.axiosInstance.delete(`/target/delete/${deleteTargetid}`);
   },
 };
