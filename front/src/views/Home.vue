@@ -5,6 +5,7 @@
                       label-size="lg"
                       label-class="font-weight-bold pt-0"
                       class="mb-0">
+      <LongTask></LongTask>
       <AddTargetModal class="mt-3" @notify="notify"></AddTargetModal>
       <TargetsTable class="mt-3" @notify="notify"></TargetsTable>
     </b-form-group>
@@ -14,10 +15,11 @@
 <script>
 import AddTargetModal from '@/components/AddTargetModal.vue';
 import TargetsTable from '@/components/TargetsTable.vue';
+import LongTask from '@/components/LongTask.vue';
 
 export default {
   name: 'Home',
-  components: { TargetsTable, AddTargetModal },
+  components: { TargetsTable, AddTargetModal, LongTask },
   methods: {
     notify(message, type, isError = false) {
       this.$bvToast.toast(`${message}`, {
