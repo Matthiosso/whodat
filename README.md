@@ -25,7 +25,7 @@ python app.py
 Start celery worker
 ```bash
 cd back
- celery worker -A app.celery --loglevel=info
+celery worker -A app.celery --loglevel=info
 ```
 
 ## Frontend

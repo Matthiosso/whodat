@@ -10,14 +10,16 @@ export default new Vuex.Store({
     targets: [],
     targetModel: {
       email: '',
-      first_name: '',
-      family_name: '',
-      phone_number: '',
+      fullName: '',
+      twitterId: '',
     },
   },
   mutations: {
     updateTargets(state, targets) {
       state.targets = targets;
+    },
+    addTargetField(state, form) {
+      state.targetModel[form.field] = form.value;
     },
   },
   actions: {
@@ -36,6 +38,10 @@ export default new Vuex.Store({
       return api.addTarget(newTarget)
         .then(() => notifier('New Target added', 'addTarget'))
         .catch((err) => notifier(err, 'addTarget', true));
+    },
+    addTargetField({ commit }, { form, notifier }) {
+      commit('addTargetField', form);
+      notifier('Target info added', 'addTargetField');
     },
   },
   modules: {

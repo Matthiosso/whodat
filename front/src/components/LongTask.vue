@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <b-container>
       <b-button variant="info" @click="start_long_task">
                 Start long task
       </b-button>
@@ -9,7 +9,7 @@
         </b-progress-bar>
       </b-progress>
        <div>{{progress.status}}</div>
-    </div>
+    </b-container>
 </template>
 
 <script>

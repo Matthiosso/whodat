@@ -1,11 +1,9 @@
 <template>
   <div class="home">
     <b-form-group label-cols-lg="3"
-                      label="Target list"
-                      label-size="lg"
-                      label-class="font-weight-bold pt-0"
                       class="mb-0">
-      <LongTask></LongTask>
+      <Form class="mt-3" @notify="notify"></Form>
+      <LongTask class="mt-3" @notify="notify"></LongTask>
       <AddTargetModal class="mt-3" @notify="notify"></AddTargetModal>
       <TargetsTable class="mt-3" @notify="notify"></TargetsTable>
     </b-form-group>
@@ -16,10 +14,16 @@
 import AddTargetModal from '@/components/AddTargetModal.vue';
 import TargetsTable from '@/components/TargetsTable.vue';
 import LongTask from '@/components/LongTask.vue';
+import Form from '@/components/Form.vue';
 
 export default {
   name: 'Home',
-  components: { TargetsTable, AddTargetModal, LongTask },
+  components: {
+    Form,
+    TargetsTable,
+    AddTargetModal,
+    LongTask,
+  },
   methods: {
     notify(message, type, isError = false) {
       this.$bvToast.toast(`${message}`, {
