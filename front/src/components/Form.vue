@@ -1,20 +1,17 @@
 <template>
   <b-container>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show" inline>
-      <b-form-select
-        id="input-3"
-        v-model="form.field"
-        :options="fields"
-        class="mb-2 mr-sm-2 mb-sm-0"
-        required></b-form-select>
-      <b-form-input
-        id="input-1"
-        v-model="form.value"
-        type="text"
-        class="mb-2 mr-sm-2 mb-sm-0"
-        :placeholder="`Enter ${form.field}`"
-        required
-      ></b-form-input>
+      <div v-for="item in fields" :key="item.field">
+        <label class="mr-sm-2" :for="'input' + item.id">{{item.text}}</label>
+        <b-form-input
+          :id="'input' + item.id"
+          v-model="item.value"
+          type="text"
+          class="mb-2 mr-sm-2 mb-sm-0"
+          :placeholder="item.placeholder"
+        ></b-form-input>
+      </div>
+
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
@@ -30,23 +27,25 @@ import { mapState, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      form: {
-        field: 'twitterId',
-        value: '',
-      },
       show: true,
       fields: [
         {
-          value: 'twitterId',
+          id: 'twitterId',
           text: 'Twitter ID',
+          value: '',
+          placeholder: '1234',
         },
         {
-          value: 'email',
+          id: 'email',
           text: 'Email',
+          value: '',
+          placeholder: 'monmail@bmail.com',
         },
         {
-          value: 'fullName',
+          id: 'fullName',
           text: 'Full name',
+          value: '',
+          placeholder: 'John Doe',
         },
       ],
     };
@@ -56,15 +55,33 @@ export default {
       event.preventDefault();
       // alert(JSON.stringify(this.form));
       this.addTargetField({
-        form: this.form,
+        form: this.fields,
         notifier: this.emitNotify,
       });
     },
     onReset(event) {
       event.preventDefault();
       // Reset our form values
-      this.form.field = 'twitterId';
-      this.form.value = '';
+      this.fields = [
+        {
+          id: 'twitterId',
+          text: 'Twitter ID',
+          value: '',
+          placeholder: '1234',
+        },
+        {
+          id: 'email',
+          text: 'Email',
+          value: '',
+          placeholder: 'monmail@bmail.com',
+        },
+        {
+          id: 'fullName',
+          text: 'Full name',
+          value: '',
+          placeholder: 'John Doe',
+        },
+      ];
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {

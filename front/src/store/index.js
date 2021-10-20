@@ -19,7 +19,9 @@ export default new Vuex.Store({
       state.targets = targets;
     },
     addTargetField(state, form) {
-      state.targetModel[form.field] = form.value;
+      Object.values(form).filter((item) => item.value.length > 0).forEach((item) => {
+        state.targetModel[item.id] = item.value;
+      });
     },
   },
   actions: {
