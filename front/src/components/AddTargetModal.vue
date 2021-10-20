@@ -54,7 +54,7 @@ export default {
     },
     handleSubmit() {
       this.addTarget({
-        newTarget: this.reformatJSON(),
+        newTarget: this.target,
         notifier: this.emitNotify,
       }).then(() => this.getTargets(this.emitNotify));
 
