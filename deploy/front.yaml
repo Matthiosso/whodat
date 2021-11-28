@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front
+  labels:
+    app: whodat-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whodat-front
+  template:
+    metadata:
+      labels:
+        app: whodat-front
+    spec:
+      containers:
+        - name: whodat-front
+          image: whodat-front
+          ports:
+            - containerPort: 8080

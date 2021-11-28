@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  labels:
+    app: whodat-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whodat-db
+  template:
+    metadata:
+      labels:
+        app: whodat-db
+    spec:
+      containers:
+        - name: whodat-db
+          image: whodat-db
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+          readinessProbe:
+            exec:
+              command: [ "psql", "-w", "-U", "postgres", "-d", "postgres", "-c", "SELECT 1" ]
+              initialDelaySeconds: 15
+              timeoutSeconds: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  selector:
+    app: whodat-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

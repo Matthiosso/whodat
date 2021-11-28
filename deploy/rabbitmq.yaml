@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  labels:
+    app: whodat-rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whodat-rabbitmq
+  template:
+    metadata:
+      labels:
+        app: whodat-rabbitmq
+    spec:
+      containers:
+        - name: whodat-rabbitmq
+          image: rabbitmq:3-management-alpine
+          ports:
+            - name: amqp
+              containerPort: 5672
+              protocol: TCP
+            - name: management
+              containerPort: 15672
+              protocol: TCP
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              value: rabbitmq
+            - name: RABBITMQ_DEFAULT_PASS
+              value: rabbitmq
+          readinessProbe: # probe to know when RMQ is ready to accept traffic
+            exec:
+              # This is just an example. There is no "one true health check" but rather
+              # several rabbitmq-diagnostics commands that can be combined to form increasingly comprehensive
+              # and intrusive health checks.
+              # Learn more at https://www.rabbitmq.com/monitoring.html#health-checks.
+              #
+              # Stage 1 check:
+              command: [ "rabbitmq-diagnostics", "ping" ]
+            initialDelaySeconds: 20
+            periodSeconds: 60
+            timeoutSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+spec:
+  selector:
+    app: whodat-rabbitmq
+  ports:
+    - protocol: TCP
+      port: 5672
+      targetPort: 5672
+      name: amqp
+    - protocol: TCP
+      port: 15672
+      targetPort: 15672
+      name: management

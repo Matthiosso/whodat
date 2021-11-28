@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back
+  labels:
+    app: whodat-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whodat-back
+  template:
+    metadata:
+      labels:
+        app: whodat-back
+    spec:
+      containers:
+        - name: whodat-back
+          image: whodat-back
+          ports:
+            - containerPort: 5000
+          readinessProbe:
+            httpGet:
+              port: 5000
+              path: '/ping'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: back
+spec:
+  selector:
+    app: whodat-back
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000

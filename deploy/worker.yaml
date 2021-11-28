@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  labels:
+    app: whodat-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whodat-worker
+  template:
+    metadata:
+      labels:
+        app: whodat-worker
+    spec:
+      containers:
+        - name: whodat-worker
+          image: whodat-back
+          command: ['celery', 'worker', '-A', 'app.celery', '--loglevel=info']
