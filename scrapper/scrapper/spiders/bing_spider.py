@@ -3,7 +3,7 @@ from scrapy.linkextractors import LinkExtractor
 
 
 class BingSpider(scrapy.Spider):
-    name = "basic"
+    name = "bing"
     search_words = ["john", "doe"]
     forbidden_words = ["bing"]
 
