@@ -83,6 +83,7 @@ docker_build(
 # and will inject any images referenced in the Tiltfile when deploying
 # https://docs.tilt.dev/api.html#api.k8s_yaml
 k8s_yaml('deploy/db.yaml')
+k8s_resource('worker', labels=['worker'])
 
 # k8s_resource allows customization where necessary such as adding port forwards and labels
 # https://docs.tilt.dev/api.html#api.k8s_resource
